@@ -1,0 +1,36 @@
+---
+title: "Consulting_HW6"
+author: "Billie"
+date: "2024-10-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r}
+rawdat <- read.csv("../DataRaw/lead-iq-01.csv")
+
+boxplot(IQ ~ Smelter,
+        data=rawdat,
+        main = "Boxplot of IQ Scores by Smelter Group", 
+        xlab = "Smelter", 
+        ylab = "IQ", 
+        col = "lightblue", 
+        border = "darkblue")
+
+far_mean <- mean(rawdat$IQ[rawdat$Smelter == "Far"])
+near_mean <- mean(rawdat$IQ[rawdat$Smelter == "Near"])
+
+summary_stats <- data.frame(
+  Statistic = c("Mean (far)", "Mean (near)"),
+  Value = c(far_mean, near_mean)
+)
+
+# Display the table using knitr's kable
+knitr::kable(summary_stats, col.names = c("Statistic", "Value"))
+```
+
+The boxplot makes it seem like there is no declarable difference between the groups, besides one highly intelligent individual. However the average IQs for each group hint that the children closer to the smelter have lower IQs.
